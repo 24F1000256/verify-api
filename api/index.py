@@ -32,6 +32,7 @@ def invalid():
 @app.post("/verify")
 @app.post("/api/verify")
 @app.post("/api/index/verify")
+@app.post("/api/index")
 async def verify(request: Request):
     try:
         body = await request.json()
