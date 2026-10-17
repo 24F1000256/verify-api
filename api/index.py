@@ -29,12 +29,9 @@ def invalid():
     return JSONResponse(status_code=401, content={"valid": False})
 
 
-@app.get("/")
-def health():
-    return {"status": "ok"}
-
-
 @app.post("/verify")
+@app.post("/api/verify")
+@app.post("/api/index/verify")
 async def verify(request: Request):
     try:
         body = await request.json()
@@ -57,3 +54,8 @@ async def verify(request: Request):
         "sub": claims.get("sub"),
         "aud": claims.get("aud"),
     }
+
+
+@app.get("/{full_path:path}")
+def health(full_path: str, request: Request):
+    return {"status": "ok", "path_seen": request.url.path}
